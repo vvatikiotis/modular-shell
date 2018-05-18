@@ -30,11 +30,13 @@ export default class extends React.Component {
     return (
       <div style={{ border: '1px solid red', padding: '1rem' }}>
         UFE: React version: {React.version}
-        <DynamicImport load={() => import('./apps/LFM/src')}>
+        <DynamicImport
+          load={() => import(/* webpackChunkName: "lfm" */ './apps/LFM/src')}
+        >
           {LFM =>
             LFM === null ? <Loading /> : <LFM {...this.props} foo={1} />
           }
-        </DynamicImport>{' '}
+        </DynamicImport>
       </div>
     );
   }

@@ -18,7 +18,6 @@ const paths = {
   root: path.resolve(__dirname, '../'),
   dist: path.resolve(__dirname, '../dist'),
   src: path.resolve(__dirname, '../src'),
-  appsSrc: path.resolve(__dirname, '../src/apps'),
   appHtml: path.resolve(__dirname, '../public/index.html'),
 };
 
