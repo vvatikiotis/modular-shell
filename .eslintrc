@@ -1,0 +1,7 @@
+{
+  "extends": "react-app",
+  "rules": {
+    "no-unexpected-multiline": "error",
+    "jsx-a11y/href-no-hash": 0
+  }
+}

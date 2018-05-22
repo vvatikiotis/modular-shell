@@ -1,20 +1,35 @@
 import React from 'react';
+import Blah from './app';
 
-export default class extends React.Component {
-  state = { foo: 0 };
+const Loading = props => <span>Loading....</span>;
 
-  static getDerivedStateFromProps(nextProps) {
-    return {
-      foo: nextProps.foo,
-    };
+class DynamicImport extends React.Component {
+  state = {
+    component: null,
+  };
+
+  componentDidMount() {
+    this.props.load().then(component => {
+      this.setState(() => ({
+        component: component.default ? component.default : component,
+      }));
+    });
   }
+
   render() {
-    const { a, rest } = { a: 'hello', b: 'hey', c: 'whasup' };
+    return this.props.children(this.state.component);
+  }
+}
+
+class LFM extends React.Component {
+  render() {
     return (
-      <div style={{ border: '1px solid black', padding: '1rem' }}>
-        React version: {React.version}
-        <div>This is state: {this.state.foo}</div>
+      <div style={{ border: '1px solid red', padding: '1rem' }}>
+        Shell: React version: {React.version} to bec
+        <Blah />
       </div>
     );
   }
 }
+
+export default LFM;

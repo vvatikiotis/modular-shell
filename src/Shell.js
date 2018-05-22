@@ -1,5 +1,4 @@
 import React from 'react';
-// import LFM from './apps/LFM/src';
 
 const Loading = props => <span>Loading....</span>;
 
@@ -10,6 +9,7 @@ class DynamicImport extends React.Component {
 
   componentDidMount() {
     this.props.load().then(component => {
+      console.log('component: ', component);
       this.setState(() => ({
         component: component.default ? component.default : component,
       }));
@@ -21,17 +21,17 @@ class DynamicImport extends React.Component {
   }
 }
 
-export default class extends React.Component {
-  componentDidMount() {
-    // import()
-  }
-
+class Shell extends React.Component {
   render() {
     return (
       <div style={{ border: '1px solid red', padding: '1rem' }}>
-        UFE: React version: {React.version}
+        Shell: React version: {React.version}
         <DynamicImport
-          load={() => import(/* webpackChunkName: "lfm" */ './apps/LFM/src')}
+          load={() => {
+            console.log('b4 load');
+            return import(/* webpackChunkName: "lfm" */
+            './apps/LFM/src');
+          }}
         >
           {LFM =>
             LFM === null ? <Loading /> : <LFM {...this.props} foo={1} />
@@ -41,3 +41,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default Shell;

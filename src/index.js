@@ -3,7 +3,7 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import './index.css';
-import UFE from './UFE';
+import Shell from './Shell';
 // import Store from './Store';
 // import createRouteSchema from './routes';
 import Debug from 'debug';
@@ -18,7 +18,7 @@ const render = Comp => ReactDOM.render(Comp, document.getElementById('root'));
 // if (module.hot) {
 //   console.log('111111', context);
 //   module.hot.accept(context, () => {
-//     const NextApp = require('UFE').default;
+//     const NextApp = require('Shell').default;
 //     console.log('22222');
 //     ReactDOM.render(
 //       <NextApp store={Store} routeSchema={routeSchema} />,
@@ -26,12 +26,12 @@ const render = Comp => ReactDOM.render(Comp, document.getElementById('root'));
 //     );
 //   });
 // }
-render(<UFE />);
+render(<Shell />);
 
 if (module.hot) {
-  module.hot.accept('./UFE', function() {
-    const NextUFE = require('./UFE').default;
+  module.hot.accept('./Shell', function() {
+    const NextShell = require('./Shell').default;
     debug('Reloading...');
-    render(<NextUFE />);
+    render(<NextShell />);
   });
 }

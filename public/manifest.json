@@ -1,6 +1,6 @@
 {
-  "short_name": "UFE Shell",
-  "name": "UFE SHELL",
+  "short_name": "Shell",
+  "name": "SHELL",
   "icons": [
     {
       "src": "favicon.ico",

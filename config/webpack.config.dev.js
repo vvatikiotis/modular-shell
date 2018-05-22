@@ -26,14 +26,15 @@ const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 module.exports = {
   mode: 'development',
   entry: {
-    ufe: path.join(paths.src, 'index.js'),
+    shell: path.join(paths.src, 'index.js'),
   },
 
   // NOTE: https://webpack.js.org/configuration/output/#module-definition-systems
   // 'library' definition provides for a script tag usage as well
   output: {
     path: paths.dist,
-    filename: '[name].bundle.js',
+    chunkFilename: '[name].[chunkhash].js',
+    filename: '[name].[chunkhash].js',
   },
 
   // NOTE: check https://webpack.js.org/configuration/devtool/
@@ -82,7 +83,7 @@ module.exports = {
         ],
       },
       {
-        test: /(\.jsx|.js)$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         use: [
           {
@@ -95,16 +96,14 @@ module.exports = {
               presets: [
                 'react',
                 'stage-0',
-                'env',
-                //'stage-3',
-                // [
-                //     'env',
-                //     {
-                //         targets: {
-                //             browsers: ['last 3 versions', 'ie >= 10'],
-                //         },
-                //     },
-                // ],
+                [
+                  'env',
+                  {
+                    targets: {
+                      browsers: ['last 3 versions', 'ie >= 111'],
+                    },
+                  },
+                ],
               ],
               plugins: [
                 require('babel-plugin-transform-regenerator'),
@@ -133,7 +132,7 @@ module.exports = {
   },
 
   plugins: [
-    new CleanWebpackPlugin([paths.dist]),
+    new CleanWebpackPlugin([paths.dist], { root: paths.root }),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -153,24 +152,6 @@ module.exports = {
     // See https://github.com/facebookincubator/create-react-app/issues/240
     new CaseSensitivePathsPlugin(),
   ],
-  // optimization: {
-  //   splitChunks: {
-  //     cacheGroups: {
-  //       ufe: {
-  //         chunks: 'initial',
-  //         test: 'ufe',
-  //         name: 'ufe',
-  //         enforce: true,
-  //       },
-  //       lfm: {
-  //         chunks: 'initial',
-  //         test: 'lfm',
-  //         name: 'lfm',
-  //         enforce: true,
-  //       },
-  //     },
-  //   },
-  // },
 
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
@@ -187,7 +168,4 @@ module.exports = {
   performance: {
     hints: false,
   },
-  // externals: {
-  //   react: 'commonjs react', // this line is just to use the React dependency of our parent-testing-project instead of using our own React.
-  // },
 };

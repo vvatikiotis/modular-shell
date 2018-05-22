@@ -7,7 +7,8 @@
     "src/apps/*"
   ],
   "scripts": {
-    "build": "webpack --config config/webpack.config.dev",
+    "build:prod": "webpack --config config/webpack.config.prod --progress",
+    "build:dev": "webpack --config config/webpack.config.dev --progress",
     "start": "webpack-dev-server --config config/webpack.config.dev --open --color",
     "precommit": "lint-staged",
     "format": "prettier --single-quote --trailing-comma es5 --write 'src/apps/*/*.js' '/src/apps/*/!(node_modules)/**/*.js'",
@@ -23,13 +24,12 @@
       "git add"
     ]
   },
-  "author": "“Vassilis Vatikiotis\" <“vvatikiotis@gmail.com”>",
-  "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "debug": "^3.1.0",
     "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react-dom": "^16.3.2",
+    "lfm": "1.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
